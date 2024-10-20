@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap');
+
+nav {
+  background-image: url('./assets/images/Interstellar_Black_hole-ezgif.com-effects.gif');
+  background-repeat: no-repeat;
+  background-size:auto;
+  background-position: right;
+  /* background-blend-mode: screen; */
+}
+
+/* #rocketPage li {
+  list-style-image: url('./assets/images/pngegg_color.png');
+} */
+
+#rocketPage li {
+  list-style: none;
+}
+
+#history_sec iframe {
+  width: 100%;
+  height: 99vh;
+}
+
+.launch{
+  border-bottom: 1px solid rgba(97, 95, 95, 0.637);
+}
