@@ -23,7 +23,7 @@ const Navbar = () => {
     <>
       {/* Desktop Navbar */}
       <nav
-        className="w-full bg-black text-yellow-50 p-10  md:grid md:grid-cols-3 items-center navbar sticky top-0 z-50"
+        className="w-full bg-black text-yellow-50 p-10  md:grid md:grid-cols-3 items-center navbar sticky top-0 z-50 hidden md:block"
         style={{ fontFamily: "Orbitron" }}
       >
         <Link to="/" className="text-3xl " style={{ fontFamily: "Orbitron" }}>
