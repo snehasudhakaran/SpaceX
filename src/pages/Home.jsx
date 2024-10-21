@@ -197,7 +197,7 @@ const Home = () => {
         {upcomingLaunches.length > 3 && (
           <div className="w-full flex justify-center mt-6">
             <button
-              className="px-4 py-2 bg-[#292a2b6e] border-1 border-[#767676ab] text-white rounded-lg"
+              className="px-4 py-2 bg-[#292a2b6e] border border-1 border-[#585858ab] text-white rounded-lg"
               onClick={toggleShowMoreLaunches}
             >
               {showMoreLaunches ? "Show Less" : "Show More"}
@@ -224,7 +224,7 @@ const Home = () => {
         {starlinkData.length > 2 && (
           <div className="w-full flex justify-center mt-6">
             <button
-              className="px-4 py-2 bg-[#292a2b6e] border-1 border-[#767676ab] text-white rounded-lg"
+              className="px-4 py-2 bg-[#292a2b6e] border border-1 border-[#585858ab] text-white rounded-lg"
               onClick={toggleShowMoreStarlink}
             >
               {showMoreStarlink ? "Show Less" : "Show More"}
