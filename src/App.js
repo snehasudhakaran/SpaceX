@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
+import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import LoadingSpinner from './utils/loadingSpinner.js'; 
 
@@ -14,6 +15,8 @@ const Launches = lazy(() => import('./pages/Launches'));
 function App() {
   return (
     <div className="App">
+
+      {/* Navbar */}
       <Navbar />
       {/* Suspense with loading spinner as fallback */}
       <Suspense fallback={<LoadingSpinner />}>
@@ -25,6 +28,9 @@ function App() {
           <Route path='/launches' element={<Launches />} />
         </Routes>
       </Suspense>
+
+      {/* Footer */}
+      <Footer/>
     </div>
   );
 }

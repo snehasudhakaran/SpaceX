@@ -24,3 +24,4 @@ export const getRockets = (forceRefresh = false) => getData('/rockets', forceRef
 export const getRocketById = (id, forceRefresh = false) => getData(`/rockets/${id}`, forceRefresh);
 export const getLaunchData = (forceRefresh = false) => getData('/launches', forceRefresh);
 export const getHistory = (forceRefresh = false) => getData('/history', forceRefresh);
+export const getStarlinkData = (forceRefresh = false) => getData('/starlink', forceRefresh);

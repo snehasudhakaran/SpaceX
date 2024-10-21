@@ -3,9 +3,13 @@
 nav {
   background-image: url('./assets/images/Interstellar_Black_hole-ezgif.com-effects.gif');
   background-repeat: no-repeat;
-  background-size:auto;
+  background-size: auto;
   background-position: right;
   /* background-blend-mode: screen; */
+}
+
+.navbar{
+  border-bottom: 1px solid rgba(83, 82, 82, 0.667);
 }
 
 /* #rocketPage li {
@@ -14,6 +18,18 @@ nav {
 
 #rocketPage li {
   list-style: none;
+}
+
+.overlay::after{
+
+  position: absolute;
+  content:"";
+  width: 100%;
+  height: 100%;
+  left:0;
+  top:0;
+  background-color: rgba(5, 5, 5, 0.5);
+  z-index: 3;
 }
 
 #history_sec iframe {

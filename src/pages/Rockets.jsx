@@ -1,13 +1,22 @@
+/**
+ * Rockets Component
+ *
+ * This component fetches a list of SpaceX rockets from an API and displays
+ * them in a grid format. Users can search for specific rockets by name using
+ * a search input. The component handles loading states, error messages, and
+ * dynamically filters the rocket list based on the user's input.
+ */
+
 import React, { useEffect, useState } from "react";
 import { getRockets } from "../utils/spacexApi";
 import RocketCard from "../components/RocketCard";
 import LoadingSpinner from "../utils/loadingSpinner";
 
-function Rockets() {
+const Rockets = () => {
   const [rockets, setRockets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchRockets = async () => {
@@ -32,13 +41,15 @@ function Rockets() {
     return <div className="text-center text-white">{error}</div>;
   }
 
-  // Filtering function for rockets based on the search term
   const filteredRockets = rockets.filter((rocket) =>
     rocket.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="container mx-auto p-4 my-10">
+    <div
+      className="container mx-auto p-4 my-10"
+      style={{ fontFamily: "Montserrat" }}
+    >
       <h1 className="text-4xl font-bold text-center mb-4">SpaceX Rockets</h1>
       <p className="mb-5 text-center ">
         Below are the list of rockets launched by SpaceX.

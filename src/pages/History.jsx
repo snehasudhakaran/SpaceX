@@ -1,11 +1,30 @@
+/**
+ * History Component
+ *
+ * This component displays a list of historic moments from SpaceX,
+ * allowing users to search for specific moments and navigate through
+ * the data using pagination controls. The component fetches data
+ * from the SpaceX API, manages loading states, handles errors,
+ * and provides a user-friendly search feature.
+ *
+ * Key Features:
+ * - Fetches historic moments from the SpaceX API
+ * - Implements a search function to filter results based on user input
+ * - Displays paginated results for better navigation
+ * - Shows a loading spinner while data is being fetched
+ * - Displays error messages if data fetching fails
+ *
+ */
+
 import React, { useEffect, useState } from "react";
 import { getHistory } from "../utils/spacexApi";
 import HistoryItem from "../components/HistoryItem";
+import PaginationControls from "../components/PaginationControls";
 import LoadingSpinner from "../utils/loadingSpinner";
+import { usePagination } from "../hooks/usePagination";
 
-function History() {
+const History = () => {
   const [history, setHistory] = useState([]);
-  const [filteredHistory, setFilteredHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,9 +34,8 @@ function History() {
       try {
         const response = await getHistory();
         setHistory(response.data);
-        setFilteredHistory(response.data);
       } catch (err) {
-        setError("Failed to fetch history data.");
+        setError("Failed to fetch history data");
       } finally {
         setLoading(false);
       }
@@ -26,54 +44,62 @@ function History() {
     fetchHistory();
   }, []);
 
-  const handleSearch = (e) => {
-    const term = e.target.value.toLowerCase();
-    setSearchTerm(term);
+  // Function to filter history
+  const filteredHistory = history.filter((hist) =>
+    hist.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-    const filtered = history.filter(
-      (hist) =>
-        hist.title.toLowerCase().includes(term) ||
-        hist.details.toLowerCase().includes(term)
-    );
-    setFilteredHistory(filtered);
-  };
+  // Pagination logic
+  const {
+    currentData: paginatedHistory,
+    currentPage,
+    totalPages,
+    goToNextPage,
+    goToPreviousPage,
+    goToPage,
+  } = usePagination(filteredHistory, 6);
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+  if (loading) return <LoadingSpinner />;
 
-  if (error) {
-    return <div className="text-white text-center">{error}</div>;
-  }
+  if (error) return <div className="text-white text-center">{error}</div>;
 
   return (
-    <div className="container mx-auto p-4 my-10" id="history_sec">
+    <div
+      className="container mx-auto p-4 my-10"
+      style={{ fontFamily: "Montserrat" }}
+    >
       <h1 className="text-4xl font-bold mb-5 text-center">Historic Moments</h1>
 
-      {/* Search Input for filtering */}
-      <div className="mb-8 flex justify-center">
+      {/* Search Input */}
+      <div className="mb-6 flex justify-center">
         <input
           type="text"
-          placeholder="Search historic moments..."
+          placeholder="Search Historic moments"
           value={searchTerm}
-          onChange={handleSearch}
+          onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full lg:w-1/2 p-3 px-6 border bg-[#292a2b6e] rounded-full border-1 border-[#585858ab] text-white my-10"
         />
       </div>
 
-      <div className="block grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {filteredHistory.length > 0 ? (
-          filteredHistory.map((hist) => (
-            <HistoryItem key={hist.id} item={hist} />
-          ))
-        ) : (
-          <p className="text-center text-gray-500 col-span-1 md:col-span-3">
-            No historic moments found.
-          </p>
-        )}
+      {/* Historic Moments*/}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        {paginatedHistory.length > 0 ? (paginatedHistory.map((hist) => (
+          <HistoryItem key={hist.id} item={hist} />
+        ))) : (          <div className="text-center text-gray-500 col-span-1 md:col-span-3">
+        No Historic Moment match your search criteria.
+      </div>)}
       </div>
+
+      {/* Pagination Controls */}
+      <PaginationControls
+        currentPage={currentPage}
+        totalPages={totalPages}
+        goToNextPage={goToNextPage}
+        goToPreviousPage={goToPreviousPage}
+        goToPage={goToPage}
+      />
     </div>
   );
-}
+};
 
 export default History;
